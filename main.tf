@@ -4,6 +4,16 @@ resource "aws_vpc" "main" {
   instance_tenancy = "default"
 
   tags = {
-    Name = "main"
+    tags = merge ({ Name = "${var.env}-vpc"}, var.tags )
+  }
+}
+
+resource "aws_subnet" "main" {
+  count = length(var.web_subnet_cidr_block)
+  vpc_id     = aws_vpc.main.id
+  web_subnet_cidr_block = element(var.web_subnet_cidr_block, count.index)
+
+  tags = {
+    Name = "Main"
   }
 }
