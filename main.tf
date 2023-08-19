@@ -25,10 +25,10 @@ module "subnets" {
 module "single_account_single_region" {
   source = "./subnets"
 
-  # providers = {
-  #   aws.this = aws
-  #   aws.peer = aws
-  # }
+  providers = {
+    aws.this = aws
+    aws.peer = aws
+  }
 
   this_vpc_id = aws_vpc.main.id
   peer_vpc_id = var.default_vpc_id
