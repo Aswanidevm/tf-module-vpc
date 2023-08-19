@@ -22,21 +22,26 @@ module "subnets" {
 
 }
 
-module "single_account_single_region" {
-  source = "./subnets"
+# module "single_account_single_region" {
+#   source = "./subnets"
 
-  providers = {
-    aws.this = aws
-    aws.peer = aws
-  }
+#   providers = {
+#     aws.this = aws
+#     aws.peer = aws
+#   }
 
-  this_vpc_id = aws_vpc.main.id
-  peer_vpc_id = var.default_vpc_id
+#   this_vpc_id = aws_vpc.main.id
+#   peer_vpc_id = var.default_vpc_id
 
-  auto_accept_peering = true
+#   auto_accept_peering = true
 
-  tags = {
-    Name        = "tf-single-account-single-region"
-    Environment = "Test"
-  }
+#   tags = {
+#     Name        = "tf-single-account-single-region"
+#     Environment = "Test"
+#   }
+# }
+resource "aws_vpc_peering_connection" "peering" {
+  
+  peer_vpc_id   = var.default_vpc_id
+  vpc_id        = aws_vpc.main.id
 }
