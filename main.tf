@@ -30,7 +30,7 @@ module "single_account_single_region" {
   #   aws.peer = aws
   # }
 
-  this_vpc_id = var.this_vpc_id
+  this_vpc_id = aws_vpc.main.id
   peer_vpc_id = var.default_vpc_id
 
   auto_accept_peering = true
