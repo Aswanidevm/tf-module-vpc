@@ -62,7 +62,7 @@ resource "aws_route" "route-igw" {
 }
 
 resource "aws_eip" "ngw" {
-  domain      = true
+  vpc      = true
 }
 
 resource "aws_nat_gateway" "ngw" {
