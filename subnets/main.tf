@@ -10,7 +10,7 @@ resource "aws_subnet" "main" {
 }
 
 resource "aws_route_table" "table" {
-  vpc_id = aws_vpc.example.id
+  vpc_id = var.vpc_id
 
   # route {
   #   cidr_block = "10.0.1.0/24"
