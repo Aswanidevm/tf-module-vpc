@@ -54,8 +54,21 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_route" "route-igw" {
-  route_table_id            = module.subnets["public"].route_table_ids
+  route_table_id            = lookup(lookup(module.subnets, "public", null), "route_table_ids", null)
+  # module.subnets["public"].route_table_ids
   destination_cidr_block    = "0.0.0.0/0"
   gateway_id  = aws_internet_gateway.igw.id
+  
+}
+
+resource "aws_eip" "ngw" {
+  vpc      = true
+}
+
+resource "aws_nat_gateway" "examplngwe" {
+  allocation_id = aws_eip.ngw.id
+  subnet_id     = lookup(lookup(module.subnets, "public", null), "subnet_ids", null[0])
+
+ tags = merge ({ Name = "${var.env}-ngw"}, var.tags )
   
 }
