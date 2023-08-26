@@ -6,4 +6,4 @@ variable "az" {
   default = ["us-east-1a", "us-east-1b"]
 }
 variable "default_vpc_id" {}
-variable "route_table_id" {}
+variable "route_table_ids" {}
